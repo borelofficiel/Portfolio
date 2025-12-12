@@ -3,6 +3,23 @@
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
+
+.project-live .live-link {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #3b82f6; /* bleu royal */
+  color: white;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.project-live .live-link:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
+
 .projects-container {
   max-width: 1200px;
   margin: 0 auto;

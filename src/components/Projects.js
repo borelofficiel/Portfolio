@@ -1,23 +1,29 @@
+// IMPORTATIONS IMAGES DE MES SITES  
+import ALLODOC1 from '../assets/capturedecran/ALLODOC1.jpg';
+import ALLODOC2 from '../assets/capturedecran/ALLODOC2.jpg';
+import ALLODOC3 from '../assets/capturedecran/ALLODOC3.jpg';
+import ALLODOC4 from '../assets/capturedecran/ALLODOC4.jpg';
+import ALLODOC5 from '../assets/capturedecran/ALLODOC5.jpg';
+import ALLODOC6 from '../assets/capturedecran/ALLODOC6.jpg';
+
+import MAZOPAGNE1 from '../assets/capturedecran/MAZOPAGNE1.png';
+import MAZOPAGNE2 from '../assets/capturedecran/MAZOPAGNE2.png';
+import MAZOPAGNE3 from '../assets/capturedecran/MAZOPAGNE3.png';
+import MAZOPAGNE4 from '../assets/capturedecran/MAZOPAGNE4.png';
+import MAZOPAGNE5 from '../assets/capturedecran/MAZOPAGNE5.png';
+
 import React, { useState } from 'react';
-import { 
-  FaTimes, FaChevronLeft, FaChevronRight, FaStethoscope 
-} from 'react-icons/fa';
+import { FaTimes, FaChevronLeft, FaChevronRight, FaStethoscope } from 'react-icons/fa';
 import './Projets.css';
 
 const Projects = () => {
-  // State pour gérer les erreurs de chargement des images
   const [imageErrors, setImageErrors] = useState({});
-  
-  // State pour gérer l'ouverture du modal
   const [modalOpen, setModalOpen] = useState(false);
-  
-  // State pour l'image actuellement affichée dans le modal
   const [currentImageSrc, setCurrentImageSrc] = useState('');
   const [currentImageTitle, setCurrentImageTitle] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentProject, setCurrentProject] = useState(null);
 
-  // Fonction appelée quand une image ne se charge pas
   const handleImageError = (projectId, screenshotIndex) => {
     setImageErrors(prev => ({
       ...prev,
@@ -25,7 +31,6 @@ const Projects = () => {
     }));
   };
 
-  // Ouvre le modal et affiche l'image sélectionnée
   const openModal = (imageIndex, project) => {
     setCurrentProject(project);
     setCurrentImageIndex(imageIndex);
@@ -34,7 +39,6 @@ const Projects = () => {
     setModalOpen(true);
   };
 
-  // Ferme le modal
   const closeModal = () => {
     setModalOpen(false);
     setCurrentImageSrc('');
@@ -43,7 +47,6 @@ const Projects = () => {
     setCurrentProject(null);
   };
 
-  // Passe à l'image suivante dans le modal
   const nextImage = () => {
     if (!currentProject) return;
     const nextIndex = (currentImageIndex + 1) % currentProject.screenshots.length;
@@ -51,7 +54,6 @@ const Projects = () => {
     setCurrentImageSrc(currentProject.screenshots[nextIndex]);
   };
 
-  // Passe à l'image précédente dans le modal
   const prevImage = () => {
     if (!currentProject) return;
     const prevIndex = currentImageIndex === 0 ? currentProject.screenshots.length - 1 : currentImageIndex - 1;
@@ -59,7 +61,6 @@ const Projects = () => {
     setCurrentImageSrc(currentProject.screenshots[prevIndex]);
   };
 
-  // Liste de projets (ici uniquement AlloDoc)
   const projects = [
     {
       id: 1,
@@ -69,12 +70,28 @@ const Projects = () => {
       icon: FaStethoscope,
       stack: 'Full Stack PHP + HTML/CSS',
       screenshots: [
-        'capturedecran/ALLODOC1.jpg',
-        'capturedecran/ALLODOC2.jpg',
-        'capturedecran/ALLODOC3.jpg',
-        'capturedecran/ALLODOC4.jpg',
-        'capturedecran/ALLODOC5.jpg',
-        'capturedecran/ALLODOC6.jpg'
+        ALLODOC1,
+        ALLODOC2,
+        ALLODOC3,
+        ALLODOC4,
+        ALLODOC5,
+        ALLODOC6
+      ]
+    },
+    {
+      id: 2,
+      title: 'Mazopagne',
+      description: "Application de la FIF pour la promotion du PAGNE DE LA VICTOIRE. Victoire des Éléphants à la CAN 2023, symbole d'unité et de fierté nationale. Objectifs : Accompagner l'équipe vers la CAN 2025 (Maroc).",
+      liveUrl: 'https://www.mazopagne.com',
+      technologies: ['PHP', 'MySQL', 'HTML', 'CSS'],
+      icon: FaStethoscope,
+      stack: 'Full Stack PHP + Bootstrap + HTML/CSS',
+      screenshots: [
+        MAZOPAGNE1,
+        MAZOPAGNE2,
+        MAZOPAGNE3,
+        MAZOPAGNE4,
+        MAZOPAGNE5
       ]
     }
   ];
@@ -87,7 +104,7 @@ const Projects = () => {
             <h2 className="section-title">Mes Projets</h2>
             <p className="section-subtitle">Découvrez mes réalisations récentes</p>
           </div>
-          
+
           <div className="projects-grid">
             {projects.map((project, index) => {
               const IconComponent = project.icon;
@@ -97,22 +114,27 @@ const Projects = () => {
                     <div className="project-icon">
                       <IconComponent />
                     </div>
-                    <div className="project-stack">
-                      {project.stack}
-                    </div>
+                    <div className="project-stack">{project.stack}</div>
                   </div>
+
                   <div className="project-content">
                     <h3 className="project-title">{project.title}</h3>
                     <p className="project-description">{project.description}</p>
-                    
-                    {/* Technologies utilisées */}
+
                     <div className="project-technologies">
                       {project.technologies.map(tech => (
                         <span key={tech} className="tech-tag">{tech}</span>
                       ))}
                     </div>
 
-                    {/* Captures d'écran */}
+                    {project.liveUrl && (
+                      <div className="project-live" style={{ marginBottom: '20px' }}>
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="live-link">
+                          Voir le projet en ligne
+                        </a>
+                      </div>
+                    )}
+
                     <div className="project-screenshots">
                       <h4 className="screenshots-title">
                         Captures d'écran du projet ({project.screenshots.length} images)
@@ -151,6 +173,7 @@ const Projects = () => {
                         })}
                       </div>
                     </div>
+
                   </div>
                 </div>
               );
@@ -159,7 +182,6 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Modal pour afficher les images en grand */}
       {modalOpen && currentImageSrc && currentImageTitle && (
         <div className="image-modal-overlay" onClick={closeModal}>
           <div className="image-modal" onClick={(e) => e.stopPropagation()}>
